@@ -73,33 +73,3 @@ def combine_sequences(split_index_list, sequences):
     X = [item for sublist in sequences_fold for item in sublist]
     lengths = [len(sublist) for sublist in sequences_fold]
     return X, lengths
-
-
-def putHTML(color, msg):
-    source = """<font color={}>{}</font><br/>""".format(color, msg)
-    return HTML(source)
-
-
-def feedback(passed, failmsg='', passmsg='Correct!'):
-    if passed:
-        return putHTML('green', passmsg)
-    else:
-        return putHTML('red', failmsg)
-
-
-def test_features_tryit(asl):
-    print('asl.df sample')
-    display(asl.df.head())
-    sample = asl.df.ix[98, 1][GROUND_FEATURES].tolist()
-    correct = [9, 113, -12, 119]
-    failmsg = 'The values returned were not correct.  Expected: {} Found: {}'.format(correct, sample)
-    return feedback(sample == correct, failmsg)
-
-
-def test_std_tryit(df_std):
-    print('df_std')
-    display(df_std)
-    sample = df_std.ix['man-1'][RAW_FEATURES]
-    correct = [15.154425, 36.328485, 18.901917, 54.902340]
-    failmsg = 'The raw man-1 values returned were not correct.\nExpected: {} for {}'.format(correct, RAW_FEATURES)
-    return feedback(np.allclose(sample, correct, .001), failmsg)
